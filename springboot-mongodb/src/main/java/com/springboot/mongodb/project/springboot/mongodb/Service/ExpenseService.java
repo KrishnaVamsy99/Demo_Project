@@ -33,7 +33,7 @@ public class ExpenseService
         savedExpense.setExpenseCategory(expense.getExpenseCategory());
         savedExpense.setExpenseAmount(expense.getExpenseAmount());
 
-        expenseRepository.save(expense);
+        expenseRepository.save(savedExpense);
     }
 
     public List<Expense> getAllExpenses() 

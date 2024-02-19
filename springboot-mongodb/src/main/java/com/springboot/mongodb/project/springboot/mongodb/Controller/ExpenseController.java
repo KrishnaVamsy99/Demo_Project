@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @RestController
 @RequestMapping("/api/expense")
@@ -24,6 +27,7 @@ public class ExpenseController
 {
     
     private final ExpenseService expenseService;
+    private static final Logger logger = LoggerFactory.getLogger(ExpenseController.class);
     
    
     public ExpenseController(ExpenseService expenseService) 
@@ -32,10 +36,15 @@ public class ExpenseController
     }
 
     //@SuppressWarnings("rawtypes")
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Expense>addExpense(@RequestBody Expense expense)
     {
+        logger.info("Received request to add expense: {}", expense);
+
         expenseService.addExpense(expense);
+
+        logger.info("Expense added successfully: {}", expense);
+        
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
